@@ -82,10 +82,7 @@ def sendPOST(url, payload):
 	try:
 		request_counter+=1
 		if payload:
-			print payload
 			request = requests.post(url, data=payload, headers=headers)
-			print request.status_code
-			print request.text
 		else:
 			request = requests.post(url, headers=headers)
 		sys.stdout.write("\rNumber of requests sent %i" % request_counter)
