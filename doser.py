@@ -38,9 +38,9 @@ def randomString(size):
 		out_str += chr(a)
 	return(out_str)
 
-def sendGET(url):
+def initHeaders():
 	useragent_list()
-	global headers_useragents, request_counter
+	global headers_useragents, additionalHeaders
 	headers = {
 				'User-Agent': random.choice(headers_useragents),
 				'Cache-Control': 'no-cache',
@@ -49,50 +49,43 @@ def sendGET(url):
 				'Keep-Alive': random.randint(110,120),
 				'Connection': 'keep-alive'
 				}
+
+	if additionalHeaders:
+		for header in additionalHeaders:
+			headers.update({header.split(":")[0]:header.split(":")[1]})
+	return headers
+
+def handleStatusCodes(status_code):
+	global request_counter
+	sys.stdout.write("\rNumber of requests sent %i" % request_counter)
+	sys.stdout.flush()
+	if status_code == 429:
+			printMsg("You have been throttled")
+	if status_code == 500:
+		printedMsg("Status code 500 received")
+
+def sendGET(url):
+	global request_counter
+	headers = initHeaders()
 	try:
 		request_counter+=1
 		request = requests.get(url, headers=headers)
-		sys.stdout.write("\rNumber of requests sent %i" % request_counter)
-		sys.stdout.flush()
-
-		if request.status_code == 429:
-			printMsg("You have been throttled")
-		if request.status_code == 500:
-			printedMsg("Status code 500 received")
+		handleStatusCodes(request.status_code)
 
 	except e:
 		pass
 
-
 def sendPOST(url, payload):
-	useragent_list()
-	global headers_useragents, request_counter, additionalHeader
-	headers = {
-				'User-Agent': random.choice(headers_useragents),
-				'Cache-Control': 'no-cache',
-				'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-				'Referer': "http://www.google.com/?q=" + randomString(random.randint(5,10)),
-				'Keep-Alive': random.randint(110,120),
-				'Connection': 'keep-alive'
-				}
-
-	if additionalHeader:
-		headers.update({additionalHeader.split(":")[0]:additionalHeader.split(":")[1]})
-
+	global request_counter
+	headers = initHeaders()
 	try:
 		request_counter+=1
 		if payload:
 			request = requests.post(url, data=payload, headers=headers)
 		else:
 			request = requests.post(url, headers=headers)
-		sys.stdout.write("\rNumber of requests sent %i" % request_counter)
-		sys.stdout.flush()
-
-		if request.status_code == 429:
-			printMsg("You have been throttled")
-		if request.status_code == 500:
-			printedMsg("Status code 500 received")
-
+		handleStatusCodes(request.status_code)
+		
 	except e:
 		pass
 
@@ -123,12 +116,12 @@ def main(argv):
 	parser.add_argument('-g', help='Specify GET request. Usage: -g \'<url>\'')
 	parser.add_argument('-p', help='Specify POST request. Usage: -p \'<url>\'')
 	parser.add_argument('-d', help='Specify data payload for POST request', default=None)
-	parser.add_argument('-ah', help='Specify addtional header', default=None)
+	parser.add_argument('-ah', help='Specify addtional header/s. Usage: -ah \'Content-type: application/json\' \'User-Agent: Doser\'', default=None, nargs='*')
 	parser.add_argument('-t', help='Specify number of threads to be used', default=500, type=int)
 	args = parser.parse_args()
 
-	global url, payload, additionalHeader
-	additionalHeader = args.ah
+	global url, payload, additionalHeaders
+	additionalHeaders = args.ah
 	payload = args.d
 
 	if args.g:
