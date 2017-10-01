@@ -1,6 +1,6 @@
 # doser.py
-DoS tool for HTTP requests (extended by hulk but has more functionalities) written in Python
-
+DoS tool for HTTP requests (extended by hulk but has more functionalities) written in Python:
+![](https://raw.githubusercontent.com/Quitten/doser.py/master/doser.jpg)
 # Usage
 usage: doser.py [-h] [-g G] [-p P] [-d D] [-ah AH] [-t T]
 
