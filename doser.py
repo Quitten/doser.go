@@ -45,8 +45,8 @@ def initHeaders():
 				'User-Agent': random.choice(headers_useragents),
 				'Cache-Control': 'no-cache',
 				'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-				'Referer': "http://www.google.com/?q=" + randomString(random.randint(5,10)),
-				'Keep-Alive': random.randint(110,120),
+				'Referer': 'http://www.google.com/?q=' + randomString(random.randint(5,10)),
+				'Keep-Alive': str(random.randint(110,120)),
 				'Connection': 'keep-alive'
 				}
 
@@ -57,7 +57,7 @@ def initHeaders():
 
 def handleStatusCodes(status_code):
 	global request_counter
-	sys.stdout.write("\rNumber of requests sent %i" % request_counter)
+	sys.stdout.write("\r%i requests has been sent" % request_counter)
 	sys.stdout.flush()
 	if status_code == 429:
 			printMsg("You have been throttled")
@@ -70,9 +70,9 @@ def sendGET(url):
 	try:
 		request_counter+=1
 		request = requests.get(url, headers=headers)
+		# print 'her'
 		handleStatusCodes(request.status_code)
-
-	except e:
+	except:
 		pass
 
 def sendPOST(url, payload):
@@ -85,8 +85,7 @@ def sendPOST(url, payload):
 		else:
 			request = requests.post(url, headers=headers)
 		handleStatusCodes(request.status_code)
-		
-	except e:
+	except:
 		pass
 
 class SendGETThread(threading.Thread):
