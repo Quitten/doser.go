@@ -33,7 +33,7 @@ optional arguments:
   -t        Specify number of threads to be used
   
   
-Pasos para usar doser.py anonimamente
+# Pasos para usar doser.py anonimamente
 1-instalar tor
 
 apt-get install tor
