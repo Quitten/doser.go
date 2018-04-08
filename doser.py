@@ -12,8 +12,8 @@ printedMsgs = []
 
 def printMsg(msg):
 	if msg not in printedMsgs:
-		print "\n"+msg + " after %i requests" % request_counter
-	printedMsgs.append(msg)
+		print ("\n"+msg + " after %i requests" % request_counter)
+		printedMsgs.append(msg)
 
 def useragent_list():
 	global headers_useragents
