@@ -31,3 +31,25 @@ optional arguments:
   -ah      Specify addtional header
   
   -t        Specify number of threads to be used
+  
+  
+# Pasos para usar doser.py anonimamente
+1-instalar tor
+
+apt-get install tor
+
+2-instalar privoxy
+
+apt-get install privoxy
+
+Editar el archivo /etc/privoxy/config
+
+descomentar las siguientes lineas:
+listen-address 127.0.0.1:8118
+listen-address [::1]:8118
+forward-socks5t / 127.0.0.1:9050 .
+
+3-clonar el siguiente repositorio:
+git clone https://github.com/robertofocke/doser.py
+
+4-lanzar el ataque con “python doser-proxy.py”
