@@ -31,3 +31,6 @@ optional arguments:
   -ah      Specify addtional header
   
   -t        Specify number of threads to be used
+
+# TODO:
+Rewrite to Golang :)
