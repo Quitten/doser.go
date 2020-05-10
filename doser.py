@@ -62,7 +62,7 @@ def handleStatusCodes(status_code):
 	if status_code == 429:
 			printMsg("You have been throttled")
 	if status_code == 500:
-		printedMsg("Status code 500 received")
+		printMsg("Status code 500 received")
 
 def sendGET(url):
 	global request_counter
