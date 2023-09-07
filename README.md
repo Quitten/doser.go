@@ -1,5 +1,6 @@
 # doser.go
 DoS tool for HTTP requests (inspired by hulk but has more functionalities) written in Go:
+
 ![screenshot](./screenshot.png)
 
 ## How to use?
