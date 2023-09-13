@@ -1,4 +1,7 @@
 # doser.go
+
+[![Go](https://github.com/stylish-bear/doser.go/actions/workflows/go.yml/badge.svg)](https://github.com/stylish-bear/doser.go/actions/workflows/go.yml)
+
 DoS tool for HTTP requests (inspired by hulk but has more functionalities) written in Go:
 
 ![screenshot](./screenshot.png)
